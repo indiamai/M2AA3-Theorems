@@ -1,0 +1,204 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\title{M2AA3 Theorems}
+\author{India Marsden }
+\date{April 2019}
+
+\begin{document}
+\newtheorem{theorem}{Theorem}
+\renewcommand{\labelitemi}{$\textendash$}
+\newtheorem{prop}[theorem]{Proposition}
+
+\maketitle
+
+\section{Applied Linear Algebra}
+
+\begin{theorem} \textbf{Cauchy-Schwartz inequality} \\ 
+\\
+If $\underline{a} , \underline{b} \in \mathbb{R}^n $, then 
+$$
+\big | \langle \underline{a}, \underline{b} \rangle \big | \leq \Vert \underline{a} \Vert \Vert \underline{b} \Vert
+$$ with equality iff $\underline{a}$ and $\underline{b}$ are linearly dependent
+\end{theorem}
+Proof Concept:
+\begin{itemize}
+    \item Write $\underline{a}$ as a normalised vector \underline{q} 
+    \item Construct a new vector: $\underline{c} = \underline{b} - \langle \underline{b}, \underline{q} \rangle \underline{q} $
+    \item Show $\langle c, q \rangle = 0$
+    \item Starting from $\langle c, c \rangle$ plug in formula for c to show the inequality
+    \item Show condition for inequality by setting c equal to zero
+\end{itemize}
+
+\begin{theorem} \textbf{Cholesky Decomposition} 
+\\
+\\
+Let $A \in  \mathbb{R}^{n \times n}$ be any symmetric and positive definite matrix. Then there exists an invertible $P \in \mathbb{R}^{n \times n}$ such that $A = P^T P $. Furthermore, we can choose P to be upper triangular with $P_{ii} > 0$ for $i=1 \to n$. In this case, we say that $A = P^T P$ is a Cholesky decomposition of A.
+\end{theorem}
+Proof Concept:
+\begin{itemize}
+    \item Use CGS to construct orthonormal vectors \{u\} wrt the inner product induced by A
+    \item Find $U^{-1}$ by showing $U^T A U = I^n$
+    \item Set P = $U^{-1}$, show $P^T P = A$
+    \item Show you can choose P to be upper triangular, by choosing each $u_i$ to be a linear combination of $\{e_j\}_{j=0}^i$ ie choose U upper triangular.
+\end{itemize}
+
+\begin{prop} 
+Let $A \in \mathbb{R}^{n \times n}$ be symmetric and positive definite. Then $A_{kk} > 0 $ for $k=1 \to n$ and
+$$|Ajk| < (Ajj)^{1/2}(Akk)^{1/2} $$ for all $j, k = 1 \to n, j \ne k$.
+
+\end{prop}
+Proof concept:
+\begin{itemize}
+    \item Since we have sym and PD we have A = $P^TP$
+    \item Write p $= \{ p_1, p_2 ... \}$
+    \item Write $A_{jk}$ in terms of $p_i$
+    \item Use Cauchy Schwarz
+\end{itemize}
+\begin{theorem} Cholesky: B is symmetric and PD
+\end{theorem}
+Proof Concept
+\begin{itemize}
+    \item Use def to show symmetry
+    \item Show $u^TA^{1}u = u^TBu$
+    \item Get formula for $U^TBU$ from $u^TAu$
+    \item Use Cauchy Schwarz to show inequality, using v = (0, u) and $e_1$
+\end{itemize}
+\section{Least Squares Equations}
+\begin{theorem} \textbf{Normal Equations} \\
+Let $A \in \mathbb{R}^{m \times n}, m \geq n$ have linearly independent columns. Let $b \in \mathbb{R}^m$. Then $A^T A \in \mathbb{R}^{n \times n}$ is symmetric positive definite. Moreover, the unique solution $x^{*} \in \mathbb{R}^n$ to $A^T Ax^{*}  = A^T b$ [Normal equations of Ax = b] is the unique minimum of $Q(x) = \Vert Ax - b \Vert^2 $ over all $x \in \mathbb{R}^n$. $x^{*}$ is called the least squares solution to Ax = b.
+\end{theorem}
+Proof Concept
+\begin{itemize}
+    \item Know $A^TA$ symmetric
+    \item Show $A^TA$ PD by grouping into Ac
+    \item Find $\nabla Q(x)$, set to 0
+    \item Also show $D^2 Q(x)$ is symmetric positive definite to show min.
+\end{itemize}
+
+\begin{theorem} \textbf{Orthogonality Property} \\
+$\lambda^* \in \mathbb{R}^n$ minimises $E(\underline{\lambda})$ iff $\underline{u}^* = \sum^n_{i=1} \lambda^*_i \phi_i \in U$ is such that $\langle v -u^*, u \rangle = 0$ where $E(\lambda) = \Vert v - \sum^n_{i=1} \lambda_i \phi_i \Vert^2$
+
+\end{theorem}
+Proof Concept: \\
+Use the general normal equations: $$ \nabla E(\underline{\lambda^*}) = 0 \iff G\lambda^{*} = \mu$$ with $\mu_i = \langle v, \phi_i \rangle$ and $G_{ij} = \langle \phi_i, \phi_j \rangle$, the Gram Matrix
+\begin{itemize}
+    \item Plug in definitions for G and $\mu$
+    \item Rearrange for zero
+    \item Reintroduce sum, show RHS of inner product is u
+\end{itemize}
+\section{Orthogonal Polynomials}
+\begin{theorem} \textbf{Orthogonal Polynomial Recurrence relation}
+A monic orthogonal polynomial satifies this three term recurrence relation:
+$$
+\phi_{j+1}(x) = (x - a_j) \phi_j(x) - b_j\phi_{j-1}(x)
+$$
+with $ a_j = \frac{\langle x\phi_j, \phi_j \rangle}{\Vert \phi_j \Vert^2}$, $b_j = \frac{\Vert \phi_j \Vert^2}{\Vert \phi_{j-1} \Vert^2}$
+\end{theorem}
+Proof Concept:
+\begin{itemize}
+    \item Take $\{ \phi_k \}_{k=1}^{j+1}$ as a set of monic orthogonal polynomials. 
+    \item Write $\phi_{j+1}(x)- x\phi_j(x)$ as a linear combination of this basis
+    \item Find the coefficients $c_i$ by expanding $\langle \phi_{j+1} - x\phi_{j} , \phi_i \rangle$, and argue that all except 2 are 0 through orthogonality. 
+    \item The remaining two are the coefficients a = $c_j$ and b = $c_{j-1}$.
+    \item The coefficient for b can be simplified by adding and subtracting $\phi_j$ and expanding.
+\end{itemize}
+\section{Fourier Series}
+\begin{theorem} \textbf{Pointwise convergence} \\
+
+Suppose f and f' are piecewise continuous on $-d \leq x < d$. Furthermore, suppose that f is defined outside of the interval $-d \leq x < d$, so that it is periodic with period 2d, i.e. $f(x + k2d) = f(x) \forall x \in [-d, d), k \in \mathbb{Z}$. Then the Fourier series, $f_n^*$ of f(x) is such that $f_n^*(x) \to f(x)$ as $n \to \infty$ art points x where f is continuous and such that $$
+f_n^*(x) \to \frac{1}{2}[f(x-) + f(x+)] \text{ as n } \to \infty$$
+at points where f is discontinuous.
+\end{theorem}
+Proof not given
+\section{Polynomial Interpolation}
+\begin{theorem}
+Let $p_n(z) = a_0 + a_1z + ... + a_nz^n \in \mathbb{P}^n, a_i \in \mathbb{C}, i = 0 \to n$. Then $p_n(z)$ has at most n distinct zeros in C,unless $a_i =0$,for $i=0 \to n$,i.e. unless $P_n$ is the zero polynomial.
+\end{theorem}
+Proof follows from fundamental theory of algebra
+\begin{theorem}
+The interpolation polynomial $p_n$ for the data $\{(z_i, f_i) \}^n_{j=0}$, all $z_i$ distinct, is unique
+\end{theorem}
+Proof by contradiction.
+\begin{theorem}
+For any distinct complex numbers $z_1, z_2 ... z_n$, the divided difference satisfies $$
+f[z_0 ... z_{j+1}] = \frac{f[z_0 ... z_{j-1}] - f[z_1 ... z_{j+1}]}{z_0 - z_{j+1}}
+$$
+\end{theorem}
+Proof concept:
+\begin{itemize}
+    \item Construct two polynomials p and q with $f[z_0...z_n]$ and $f[z_1...z_{n+1}$ as their coefficients
+    \item Construct a polynomial, r that combines the previous two in the form given in the theorem
+    \item Show that r interpolates the data, and so the coefficients = $f[z_0...z_{j+1}]$
+\end{itemize}
+\begin{theorem}
+Let $p_n \in P_n$ interpolate f at n + 1 distinct points $\{z_j \}^n_{j=0}, z_j \in \mathbb{C}$. Then the error $e(z) = f(z) - p_n(z)$ is such that
+$$
+e(z) = f[z_0 ... z_n, z]\prod_{j=1}^n (z - z_j)
+$$
+\end{theorem}
+Proof concept:
+\begin{itemize}
+    \item Add a new distinct point and write a interpolating polynomial $p_{n+1}$ in terms of $p_n$
+    \item Take the new point as general z as it can be any point.
+    \item Take the difference between the new poly with z and $p_n$
+\end{itemize}
+
+\begin{theorem}
+Let $f \in C^n[x_0, x_n]$ i.e. f and its first n derivatives are continuous on the interval $[x_0, x_n]$ where for ease of exposition we have assumed the points are ordered: $x_0 < x_1 < ... < x_n$. Then there exists a $\xi \in [x_0,x_n]$ such that
+$$f[x_0,x_1,... ,x_n] = \frac{1}{n!} f^{(n)}(\xi) $$
+\end{theorem}
+Proof concept:
+\begin{itemize}
+    \item Can be shown for n=1 by Mean Value Theorem
+    \item Let $e(x) = f(x) - p_n(x)$, look at number of zeros in e(x)
+    \item Use Rolle's theorem to show that $e^{(n)}(x)$ contains at least 1 zero
+    \item Set $\xi$ to be where $e^{(n)}(x) = 0$
+    \item Find an expression for $p_n^{(n)}(x)$, rearrange 
+\end{itemize}
+\begin{theorem}
+Let $f \in \mathbb{C}^{n+1}[a, b]$, let ${x_i}^n_{i=0}$ be distinct in [a, b]. If $p_n \in P_n$ interpolates f at ${x_i}^n_{i=0}$ then the error $e(x) = f(x) - p_n(x)$ satisfies
+$$|e(x)| \leq \frac{1}{(n+1)!} \bigg | \prod_{j=1}^n (x - x_j) \bigg | \underset{a \leq x \leq b}{max} |f^{(n+1)}(y)| \hspace{6pt} \forall x \in [a,b]
+$$
+\end{theorem}
+Proof Concept
+\begin{itemize}
+    \item Write error in form from theorem 12
+    \item Replace divided difference terms with form from theorem 13
+    \item Take max and write less than or equal to, in order to eliminate $\xi$
+\end{itemize}
+\section{Piecewise polynomial interpolation}
+\begin{theorem} \textbf{Error in piecewise polynomial interpolation}
+$$
+\Vert f - p_n \Vert_\infty \leq \frac{h^2}{8} \Vert f''(x) \Vert_\infty
+$$
+\end{theorem}
+\section{Quadrature}
+\begin{theorem}
+\textbf{Gaussian Quadrature}
+\\
+Take a weight function w(x) and define the inner product:
+$$
+\langle f, g \rangle = \int_a^b w(x)f(x)g(x) dx
+$$
+Take $\phi_{n+1}$ to be the orthogonal polynomial of degree n+1 with respect to this inner product. \\ Let $\{x_i^* \}_{i=0}^{n+1}$ be the n+1 distinct zeros of this polynomial. If we approxmiate $I(f)$ by $I^*_n(f) = I(p_n)$ with $p_n$ is such that $p_n(x_i^*) = f(x_i^*) $ then 
+\begin{align*}
+I^*_n(f) = \sum_{i=0}^n w^*_i f(x_i^*) \\
+w^*_i = \int_a^b w(x)l_i(x) dx, i = 0 \to n \\
+l_i = \prod_{j=0, j \ne i}^n \frac{x-x_j}{x_i-x_j}
+\end{align*}
+Then,
+$$
+I_n^*(f) = I(f) , \forall f \in \mathbb{P}_{2n +1}
+$$
+Moreover, $w_i^* > 0 , i=0\to n$  
+\end{theorem}
+Proof concept:
+\begin{itemize}
+    \item Write $f-p_n$ as $q_n \cdot \phi_{n+1}$ with $q_n \in \mathbb{P}_n$ and $f \in \mathbb{P}_{2n}$
+    \item Integrate and show zero
+    \item To show positive weight, take $f = (l_j)^2$ and express in $I_n^*(f)$
+\end{itemize}
+
+\end{document}
